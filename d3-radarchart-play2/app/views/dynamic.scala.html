@@ -1,0 +1,31 @@
+@(message: String)(metrics:List[List[Map[String, Object]]])
+
+@import com.google.gson.Gson
+
+@main("Welcome to Play 2.1") {
+      
+<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("d3.js"))'></script>
+
+<script type='text/javascript' src='http://graves.cl/radar-chart-d3/src/radar-chart.js'></script>
+   
+<div id="chart" style='float:left'></div>
+
+<script type='text/javascript'>//<![CDATA[ 
+d = @{Html(new Gson().toJson(metrics))};
+
+RadarChart.draw("#chart", d);	    
+//]]>  
+
+</script>
+
+<script lang="text/javascript">
+
+var radarChartDynamicData = @{Html(new Gson().toJson(metrics))};
+
+var dynamicChart = new Chart(document.getElementById("radarChartDynamicCanvas").getContext("2d")).Radar(radarChartDynamicData);
+
+</script>
+
+
+
+}

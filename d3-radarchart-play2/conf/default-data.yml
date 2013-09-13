@@ -1,0 +1,17 @@
+expectations:
+
+- !!app.models.MetricSet
+     name: satisfactory good results
+     metrics:
+        - !!app.models.Metric
+           name: speed
+           type: physics
+           value: 8
+        - !!app.models.Metric
+           name: weight
+           type: physics
+           value: 70
+        - !!app.models.Metric
+           name: intelligence
+           type: psychic
+           value: 99

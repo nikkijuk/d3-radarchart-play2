@@ -1,0 +1,18 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+    	<link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.css"))'>
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+  		<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.js"))'></script>
+    </head>
+    <body>
+        @content
+    </body>
+    
+  <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("js/bootstrap.js"))'></script>
+
+</html>
