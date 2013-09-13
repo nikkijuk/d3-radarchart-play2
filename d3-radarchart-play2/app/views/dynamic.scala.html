@@ -18,14 +18,4 @@ RadarChart.draw("#chart", d);
 
 </script>
 
-<script lang="text/javascript">
-
-var radarChartDynamicData = @{Html(new Gson().toJson(metrics))};
-
-var dynamicChart = new Chart(document.getElementById("radarChartDynamicCanvas").getContext("2d")).Radar(radarChartDynamicData);
-
-</script>
-
-
-
 }
