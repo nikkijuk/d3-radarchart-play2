@@ -16,48 +16,49 @@ import app.models.Metric;
 import app.models.MetricSet;
 
 public class Application extends Controller {
-  
-	private static MetricSet expected = null;
-	
+
+	private static List<MetricSet> metrics = null;
+
 	static {
 		try {
-			if (expected == null) {
+			if (metrics == null) {
 				// load yaml data
-				Map<String, List<Object>> all = (Map<String, List<Object>>) Yaml
+				Map<String, List<MetricSet>> all = (Map<String, List<MetricSet>>) Yaml
 						.load("default-data.yml");
 				// Insert employees
-				expected = (MetricSet) all.get("expectations").get(0);
+				metrics = all.get("expectations");
 				Logger.info("Defaults added");
 
 			}
 		} catch (Exception e) {
-			Logger.error("Defaults couldn't be added "+e.getMessage(), e);
+			Logger.error("Defaults couldn't be added " + e.getMessage(), e);
 		}
 	}
-	
-    public static Result index() {
-        return ok(index.render("Your new application is ready."));
-    }
- 
 
-    public static Result dynamic() {
-    	 
-    	// note: to make sure this works without flaws one should use comparator
-    	// note: lists which are always ordered by name (or other ordering type) would be printed in right order
-    	
-    	List<Map<String, Object>> ds = new ArrayList <Map<String, Object>>();
-    	for (Metric  metric: expected.metrics) {
-    		Map<String, Object> item = new HashMap <String, Object> (); 
-    		item.put("axis", metric.name);
-    		item.put("value", metric.value);
-    		ds.add(item);
-    	}
-      	
-    	List<List<Map<String, Object>>> radarMetrics = new ArrayList<List<Map<String, Object>>> ();
-    	radarMetrics.add(ds);
-    	
-        return ok(dynamic.render("Your new application is ready.", radarMetrics));
-    }
+	public static Result index() {
+		return ok(index.render("Your new application is ready."));
+	}
 
-    
+	public static Result dynamic() {
+
+		// note: to make sure this works without flaws one should use comparator
+		// note: lists which are always ordered by name (or other ordering type)
+		// would be printed in right order
+
+		List<List<Map<String, Object>>> radarMetrics = new ArrayList<List<Map<String, Object>>>();
+		
+		for (MetricSet metricSet : metrics) {
+			List<Map<String, Object>> ds = new ArrayList<Map<String, Object>>();
+			for (Metric metric : metricSet.metrics	) {
+				Map<String, Object> item = new HashMap<String, Object>();
+				item.put("axis", metric.name);
+				item.put("value", metric.value);
+				ds.add(item);
+			}
+			radarMetrics.add(ds);
+		}
+
+		return ok(dynamic
+				.render("Your new application is ready.", radarMetrics));
+	}
 }

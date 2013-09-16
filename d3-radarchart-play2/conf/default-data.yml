@@ -1,7 +1,7 @@
 expectations:
 
 - !!app.models.MetricSet
-     name: satisfactory good results
+     name: resultset 1
      metrics:
         - !!app.models.Metric
            name: speed
@@ -15,3 +15,18 @@ expectations:
            name: intelligence
            type: psychic
            value: 99
+- !!app.models.MetricSet
+     name: resultset 2
+     metrics:
+        - !!app.models.Metric
+           name: speed
+           type: physics
+           value: 30
+        - !!app.models.Metric
+           name: weight
+           type: physics
+           value: 40
+        - !!app.models.Metric
+           name: intelligence
+           type: psychic
+           value: 80
